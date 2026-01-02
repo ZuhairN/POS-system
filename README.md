@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# POS System
 
-## Getting Started
+## Add/Remove Items
 
-First, run the development server:
+Click an item to add it to the cart. After an item is added, each additional click increases its quantity by one
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Item quantity can also be adjusted or removed directly from the cart.
+- The cart can be cleared using the button in the top-right corner. A confirmation dialog will appear.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Parking Sales
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Click “Park Sale” (under the orange “Payment” button) to park the current sale, a dialog will prompt for the customer’s name (required; minimum 3 characters).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- If the cart is empty, a “Retrieve Sale” button appears there instead, and it’s disabled when no parked sales exist.
 
-## Learn More
+## Completing a Sale
 
-To learn more about Next.js, take a look at the following resources:
+Click the orange **"Payment"** button to begin checkout. A payment-method dialog will appear — select the desired method to continue. After selecting a method you will be given three options:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Confirm Payment** — finalize the transaction and issue the receipt.
+- **Change Payment** — return to the payment-method selector to choose or edit payment details.
+- **Cancel Sale** — abort the current sale and return to the sales screen.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+If the cart is empty, the **Payment** button is disabled.
 
-## Deploy on Vercel
+## Hotkeys
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Cart-level hotkeys
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Once an item is in the cart, the selected item can be controlled with hotkeys:
+
+- `-` — decrease the item quantity by 1, or remove it if the quantity equals one
+- `+` — increase the item quantity by 1
+- `Delete` — remove the item from the cart
+- `Arrow Up / Arrow Down / Arrow Left / Arrow Right` — navigate between items in the cart
+- `Shift + Delete` / `Shift + Escape` — clear the entire cart.
+  - `Enter`: confirm and clear the cart.
+  - `Escape`: cancel and close the dialog.
+
+When a new item is added, focus moves automatically to it (it becomes the selected item). Hotkeys always apply to the currently selected item, which is visually highlighted.
+
+### Parked-sale hotkeys
+
+- `P` — open the **Park Sale** dialog and autofocus the input field.
+
+  - `Enter`: confirm and save the parked sale.
+  - `Escape`: cancel and close the dialog.
+
+- `R` — open the parked-sales list. Each parked sale is visually highlighted and assigned a number (`1–9`).
+
+  - Press the sale’s number key (`1`–`9`) to retrieve that parked sale into the cart.
+  - `Shift + <number (1–9)>` — prompt for confirmation, then dismiss (remove) the selected parked sale.
+
+All modal dialogs support standardized keyboard shortcuts (and mouse clicks) for improved accessibility and workflow speed. The `Escape` key cancels the current operation and dismisses the popup. For single-choice operations (unlike parked sales list), the `Enter` key triggers the primary confirmation action.
+
+### Payment hotkeys
+
+- `Enter` — proceed to payment; open the **Payment** dialog. Inside the dialog:
+
+  - Press `1`–`3` to choose the corresponding payment method (each method is labeled `1`, `2`, `3`).
+  - After you select a method, press the same number again to confirm the payment and complete the transaction.
+  - `Escape` — go back / close the payment dialog at any time.
